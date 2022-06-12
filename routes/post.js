@@ -21,6 +21,16 @@ router.post('/add',async (req,res) => {
     }
 })
 
+router.get('/get/:type', async (req,res) => {
+    const {type} = req.params
+    let data = await Post.find({type: type})
+    if(data){
+        res.send({status:"success",message:"Find",data:data})
+    }else{
+        res.send({status:"error",message:"Not found",data})
+    }
+})
+
 router.delete('/del/:id', async (req,res) => {
     const id = req.params.id
     let response =  await Post.deleteOne({_id: id})
